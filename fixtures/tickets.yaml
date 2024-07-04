@@ -1,0 +1,6 @@
+App\Entity\Ticket:
+    ticket{1..100}:
+        description: '<text()>'
+        event: '@event<current()>'
+        price: '<numberBetween(500, 20000)>'
+        quantity: '<numberBetween(500, 3000)>'

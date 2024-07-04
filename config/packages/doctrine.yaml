@@ -1,0 +1,87 @@
+doctrine:
+    dbal:
+        connections:
+            default:
+                url: '%env(resolve:DATABASE_URL)%'
+                profiling_collect_backtrace: '%kernel.debug%'
+                use_savepoints: true
+            admin:
+                url: '%env(resolve:MIGRATIONS_DATABASE_URL)%'
+                profiling_collect_backtrace: '%kernel.debug%'
+                use_savepoints: true
+        default_connection: default
+        types:
+            datetime: App\DBAL\Types\UTCDateTimeType
+            datetime_immutable: App\DBAL\Types\UTCDateTimeImmutableType
+    orm:
+        auto_generate_proxy_classes: true
+        enable_lazy_ghost_objects: true
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection: default
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                report_fields_where_declared: true
+                mappings:
+                    App:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: default
+                # cache #
+                metadata_cache_driver:
+                    type: service
+                    id: cache.redis
+                result_cache_driver:
+                    type: service
+                    id: cache.redis
+                query_cache_driver:
+                    type: service
+                    id: cache.redis
+            admin:
+                connection: admin
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                report_fields_where_declared: true
+                mappings:
+                    App:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: admin
+                # cache #
+                metadata_cache_driver:
+                    type: service
+                    id: cache.redis
+                result_cache_driver:
+                    type: service
+                    id: cache.redis
+                query_cache_driver:
+                    type: service
+                    id: cache.redis
+
+when@test:
+    doctrine:
+        dbal:
+            connections:
+                default:
+                    url: '%env(resolve:TEST_DATABASE_URL)%'
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system

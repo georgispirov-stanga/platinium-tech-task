@@ -1,0 +1,10 @@
+framework:
+    cache:
+        pools:
+            cache.redis:
+                adapter: cache.adapter.redis
+                provider: 'redis://%env(REDIS_USER)%:%env(REDIS_PASS)%@redis?class=\Predis\Client'
+            cache_pool:
+                adapters:
+                    - cache.redis
+                    - cache.adapter.system

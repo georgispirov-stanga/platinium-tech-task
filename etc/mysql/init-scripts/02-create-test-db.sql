@@ -1,0 +1,1 @@
+CREATE DATABASE platinium_tickets_test;

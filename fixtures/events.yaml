@@ -1,0 +1,6 @@
+App\Entity\Event:
+    event{1..100}:
+        date: '<dateTimeBetween("now", "+200 days")>'
+        description: '<sentence()>'
+        location: '<city()>'
+        name: '<team()> - <team()>'
