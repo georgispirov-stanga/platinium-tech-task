@@ -26,8 +26,8 @@ final class Version20240630124151 extends AbstractMigration
 			    roles JSON NOT NULL, 
 			    `password` VARCHAR(255) NOT NULL, 
 			    CONSTRAINT uq_user_email UNIQUE (email)
-		    ) DEFAULT CHARACTER SET utf8mb3 
-			  COLLATE `utf8mb3_unicode_ci`
+		    ) DEFAULT CHARACTER SET utf8mb4 
+			  COLLATE `utf8mb4_unicode_ci`
 			  ENGINE = InnoDB;
 SQL
 		);
@@ -40,8 +40,8 @@ SQL
 			    location VARCHAR(255) NOT NULL,
 			    `description` LONGTEXT NOT NULL,
 			    CONSTRAINT uq_event_name UNIQUE (`name`)
-		    ) DEFAULT CHARACTER SET utf8mb3 
-			  COLLATE `utf8mb3_unicode_ci` 
+		    ) DEFAULT CHARACTER SET utf8mb4 
+			  COLLATE `utf8mb4_unicode_ci` 
 			  ENGINE = InnoDB;
 SQL
 		);
@@ -56,8 +56,8 @@ SQL
 			    payment_attributes JSON DEFAULT NULL,
 			    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			    CONSTRAINT fk_order_user FOREIGN KEY (user_id) REFERENCES `user` (id) ON DELETE CASCADE
-		    ) DEFAULT CHARACTER SET utf8mb3 
-			  COLLATE `utf8mb3_unicode_ci` 
+		    ) DEFAULT CHARACTER SET utf8mb4 
+			  COLLATE `utf8mb4_unicode_ci` 
 			  ENGINE = InnoDB;
 SQL
 		);
@@ -70,8 +70,8 @@ SQL
 			    quantity INT NOT NULL,
 			    `description` LONGTEXT NOT NULL,
 			    CONSTRAINT fk_ticket_event FOREIGN KEY (event_id) REFERENCES `event` (id) ON DELETE CASCADE
-			) DEFAULT CHARACTER SET utf8mb3 
-			  COLLATE `utf8mb3_unicode_ci` 
+			) DEFAULT CHARACTER SET utf8mb4 
+			  COLLATE `utf8mb4_unicode_ci` 
 			  ENGINE = InnoDB;
 SQL
 		);
@@ -86,8 +86,8 @@ SQL
 			    CONSTRAINT uq_order_ticket UNIQUE (order_id, ticket_id),
 			    CONSTRAINT fk_order_ticket_order FOREIGN KEY (order_id) REFERENCES `order` (id) ON DELETE CASCADE,
 			    CONSTRAINT fk_order_ticket_ticket FOREIGN KEY (ticket_id) REFERENCES ticket (id)
-		    ) DEFAULT CHARACTER SET utf8mb3 
-			  COLLATE `utf8mb3_unicode_ci` 
+		    ) DEFAULT CHARACTER SET utf8mb4 
+			  COLLATE `utf8mb4_unicode_ci` 
 			  ENGINE = InnoDB;
 SQL
 		);
